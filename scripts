@@ -25,9 +25,8 @@
 
   // Smooth active link highlight
   $('a.nav-link').on('click', function(){
-</script>
     $('a.nav-link').removeClass('active');
     $(this).addClass('active');
   });
 </script>
-</body>
+
