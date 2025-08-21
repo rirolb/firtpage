@@ -1,0 +1,32 @@
+<!-- jQuery & Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Navbar scroll background
+  $(window).on("scroll", function() {
+    if($(window).scrollTop() > 50){
+      $(".navbar").addClass("scrolled");
+    } else {
+      $(".navbar").removeClass("scrolled");
+    }
+  });
+
+  // Animate elements on scroll
+  $(window).on("scroll", function() {
+    $(".menu-item, .testimonial").each(function(){
+      let pos = $(this).offset().top;
+      let winTop = $(window).scrollTop();
+      if (pos < winTop + 600) {
+        $(this).addClass("animate__animated animate__fadeInUp");
+      }
+    });
+  });
+
+  // Smooth active link highlight
+  $('a.nav-link').on('click', function(){
+    $('a.nav-link').removeClass('active');
+    $(this).addClass('active');
+  });
+</script>
+</body>
