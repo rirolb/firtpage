@@ -69,7 +69,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
   <div class="container">
     <a class="navbar-brand" href="#">Delicious Bites</a>
-    <button class="navbar-toggler" onclick="this.parentElement.classList.add('scrolled')" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -206,6 +206,18 @@
     $('a.nav-link').removeClass('active');
     $(this).addClass('active');
   });
+  // When mobile menu opens
+  $('#navbarNav').on('show.bs.collapse', function () {
+    $('.navbar').addClass('scrolled');
+  });
+  
+  // When mobile menu closes (and page is at top)
+  $('#navbarNav').on('hidden.bs.collapse', function () {
+    if($(window).scrollTop() < 50){ // only remove if not scrolled
+      $('.navbar').removeClass('scrolled');
+    }
+  });
+
 </script>
 </body>
 </html>
