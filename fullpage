@@ -12,8 +12,8 @@
     :root { --nav-h: 80px; }         /* set to your navbar height */
     html { scroll-behavior: smooth; } /* you already have this on body */
     section { 
-  scroll-margin-top: calc(var(--nav-h) + 10px); /* little extra spacing */
-}
+      scroll-margin-top: calc(var(--nav-h) + 10px); /* little extra spacing */
+    }
     /* Navbar */
     .navbar {
       transition: all 0.3s ease;
