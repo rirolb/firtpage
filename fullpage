@@ -174,7 +174,7 @@
 </section>
 
 <!-- Special Offers -->
-<section id="offers" class="offers-section text-center text-white py-5">
+<section id="offers" class="offers-section text-center text-white py-5 m-3">
   <div class="container">
     <h2 class="section-title animate__animated animate__fadeInDown">🔥 Special Offers</h2>
     <div class="row g-4 mt-4">
