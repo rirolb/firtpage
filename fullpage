@@ -316,14 +316,11 @@
   });
   
  $('a.nav-link').on('click', function(e) {
-  e.preventDefault();
-  let target = $(this).attr('href'); 
-  let offset = $(target, window.parent.document).offset().top - 70;
-
-  // Scroll parent document instead of iframe
-  $('html, body', window.parent.document).delay(100).animate({
-    scrollTop: offset
-  }, 800, "swing");
+  e.preventDefault(); // stop default jump
+  let target = $(this).attr('href'); // get target section ID
+  $('html, body').delay(100).animate({
+    scrollTop: $(target).offset().top - 70 // adjust for navbar height
+  }, 800, "swing"); // 800ms animation with easing
 });
 </script>
 </body>
