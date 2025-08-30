@@ -8,6 +8,63 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <style>
+/* Offers */
+.offers-section {
+  background: linear-gradient(135deg, #111, #333);
+  border-radius: 20px;
+}
+.offer-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  transition: transform .4s ease, opacity .4s;
+}
+.offer-card:hover { transform: scale(1.05); }
+.offer-img { width: 100%; height: 250px; object-fit: cover; border-radius: 20px; }
+.offer-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.6);
+  opacity: 0; transition: opacity .4s ease;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.offer-card:hover .offer-overlay { opacity: 1; }
+.offer-overlay h3 { font-size: 1.8rem; margin-bottom: 10px; }
+.offer-overlay p { margin-bottom: 5px; }
+
+/* Reservation */
+.reservation-modern {
+  background: linear-gradient(135deg, #ff6347, #ff4500);
+  padding: 70px 20px;
+  border-radius: 25px;
+  color: white;
+  animation: fadeIn 2s ease;
+}
+.reservation-modern .form-control {
+  border-radius: 50px;
+  padding: 15px 20px;
+  border: none;
+  transition: box-shadow .3s;
+}
+.reservation-modern .form-control:focus {
+  box-shadow: 0 0 10px rgba(255,255,255,0.7);
+}
+.reservation-modern button {
+  border-radius: 50px;
+  padding: 15px 40px;
+  font-weight: bold;
+  transition: transform .3s, background .3s;
+}
+.reservation-modern button:hover {
+  transform: scale(1.1);
+  background: #fff !important;
+  color: #ff4500 !important;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(40px);}
+  to {opacity: 1; transform: translateY(0);}
+}
     body { scroll-behavior: smooth; font-family: 'Segoe UI', sans-serif; }
     :root { --nav-h: 80px; }         /* set to your navbar height */
     html { scroll-behavior: smooth; } /* you already have this on body */
@@ -117,9 +174,42 @@
 </section>
 
 <!-- Special Offers -->
-<section id="offers" class="container bg-dark text-white my-5 p-5 text-center">
-  <h3 class="animate__animated animate__pulse animate__infinite">🔥 Weekend Special: 20% Off All Pizzas!</h3>
-  <p>Valid from Friday to Sunday | Use code: PIZZA20</p>
+<section id="offers" class="offers-section text-center text-white py-5">
+  <div class="container">
+    <h2 class="section-title animate__animated animate__fadeInDown">🔥 Special Offers</h2>
+    <div class="row g-4 mt-4">
+      <div class="col-md-4">
+        <div class="offer-card shadow-lg animate__animated animate__fadeInUp">
+          <img src="https://picsum.photos/400/250?pizza" class="offer-img" alt="Pizza Offer">
+          <div class="offer-overlay">
+            <h3>20% Off Pizzas</h3>
+            <p>Every Friday – Sunday</p>
+            <span class="badge bg-light text-dark">Code: PIZZA20</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="offer-card shadow-lg animate__animated animate__fadeInUp animate__delay-1s">
+          <img src="https://picsum.photos/400/250?steak" class="offer-img" alt="Steak Offer">
+          <div class="offer-overlay">
+            <h3>Free Dessert</h3>
+            <p>With Every Steak Order</p>
+            <span class="badge bg-light text-dark">Weekend Only</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="offer-card shadow-lg animate__animated animate__fadeInUp animate__delay-2s">
+          <img src="https://picsum.photos/400/250?sushi" class="offer-img" alt="Sushi Offer">
+          <div class="offer-overlay">
+            <h3>Buy 1 Get 1</h3>
+            <p>Fresh Sushi Rolls</p>
+            <span class="badge bg-light text-dark">Happy Hour</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Gallery -->
@@ -151,17 +241,18 @@
 </section>
 
 <!-- Reservation -->
-<section id="reservation" class="container reservation my-5 text-center">
-  <h2 class="section-title text-white">Reserve Your Table</h2>
-  <form class="row g-3 justify-content-center mt-3" action="reserve.php" method="POST">
-  <div class="col-md-4"><input type="text" name="name" class="form-control" placeholder="Your Name" required></div>
-  <div class="col-md-4"><input type="email" name="email" class="form-control" placeholder="Email" required></div>
-  <div class="col-md-4"><input type="date" name="date" class="form-control" required></div>
-  <div class="col-md-4"><input type="time" name="time" class="form-control" required></div>
-  <div class="col-md-4"><input type="number" name="guests" class="form-control" placeholder="Guests" required></div>
-  <div class="col-md-4"><button type="submit" class="btn btn-light">Book Now</button></div>
-</form>
-
+<section id="reservation" class="reservation-modern my-5 text-center">
+  <div class="container">
+    <h2 class="section-title text-white">Reserve Your Table</h2>
+    <form class="row g-3 justify-content-center mt-3 animate__animated animate__fadeInUp" action="reserve.php" method="POST">
+      <div class="col-md-4"><input type="text" name="name" class="form-control form-control-lg" placeholder="Your Name" required></div>
+      <div class="col-md-4"><input type="email" name="email" class="form-control form-control-lg" placeholder="Email" required></div>
+      <div class="col-md-4"><input type="date" name="date" class="form-control form-control-lg" required></div>
+      <div class="col-md-4"><input type="time" name="time" class="form-control form-control-lg" required></div>
+      <div class="col-md-4"><input type="number" name="guests" class="form-control form-control-lg" placeholder="Guests" required></div>
+      <div class="col-md-4"><button type="submit" class="btn btn-light btn-lg shadow">Book Now</button></div>
+    </form>
+  </div>
 </section>
 
 <!-- Contact -->
