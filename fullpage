@@ -251,7 +251,7 @@
       <div class="col-md-4"><input type="email" name="email" class="form-control form-control-lg" placeholder="Email" required></div>
       <div class="col-md-4"><input type="date" name="date" class="form-control form-control-lg" required></div>
       <div class="col-md-4"><input type="time" name="time" class="form-control form-control-lg" required></div>
-      <div class="col-md-4"><input type="number" name="guests" class="form-control form-control-lg" placeholder="Guests" required></div>
+      <div class="col-md-4"><input type="number" name="guests" min="1" max="10" class="form-control form-control-lg" placeholder="Guests" required></div>
       <div class="col-md-4"><button type="submit" class="btn btn-light btn-lg shadow">Book Now</button></div>
     </form>
   </div>
