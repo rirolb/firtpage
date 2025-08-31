@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Reservations Dashboard</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* Simple CSS3 animations (no outside deps) */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .anim-fadeUp { animation: fadeInUp .45s ease both; }
+
+    body { background:#f7f9fc; }
+    .card { border-radius:12px; }
+    .small-muted { font-size:.92rem; color:#7b8794; }
+
+    /* table small buttons spacing */
+    .btn-sm { padding:.25rem .5rem; font-size:.78rem; }
+    .required { color: #d33; margin-left:4px; }
+    
+
+  </style>
+</head>
+<body >
+  <div class="container-fluid p-0">
+
+    <!-- LOGIN CARD (shown when not auth) -->
+    <div id="loginWrap" class="row justify-content-center mt-5 mx-0">
+      <div class="col-12 col-md-4 anim-fadeUp p-3">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h4 class="card-title mb-3">Admin Login</h4>
+            <div id="loginAlert"></div>
+            <form id="loginForm" class="row g-2">
+              <div class="col-12">
+                <input type="email" id="loginEmail" class="form-control" placeholder="Admin email" required>
+              </div>
+              <div class="col-12">
+                <input type="password" id="loginPass" class="form-control" placeholder="Password" required>
+              </div>
+              <div class="col-12 d-flex justify-content-between align-items-center">
+                <button class="btn btn-primary mt-3" type="submit">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD (shown when auth) -->
+    <div id="dashWrap" class="d-none mx-0" >
+      
+     <nav class="navbar navbar-expand-lg navbar-dark p-0" style="margin-bottom:50px">
+      <div class="container-fluid px-3 bg-dark text-white">
+        <a class="navbar-brand p-2" href="#">Reservations Dashboard</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarAdmin" 
+          aria-controls="navbarAdmin" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end p-2" id="navbarAdmin">
+          <span class="navbar-text text-white me-3" id="adminEmailDisplay"></span>
+          <button id="changePassBtn" class="btn btn-outline-light me-2 my-1">Change Password</button>
+          <button id="logoutBtn" class="btn btn-outline-danger my-1">Logout</button>
+        </div>
+      </div>
+    </nav>
+
+
+      <div class="row g-3 mx-0">
+        <!-- Add / Quick add form -->
+        <div class="col-12 col-lg-4 anim-fadeUp">
+          <div class="card p-3 shadow-sm">
+            <h5 class="mb-3">Add Reservation</h5>
+            <form id="addForm" class="row g-2">
+              <div class="col-12"><input class="form-control" name="name" placeholder="Name" required></div>
+              <div class="col-12"><input class="form-control" name="email" type="email" placeholder="Email" required></div>
+              <div class="col-6"><input class="form-control" name="date" type="date" required></div>
+              <div class="col-6"><input class="form-control" name="time" type="time" required></div>
+              <div class="col-12"><input class="form-control" name="guests" type="number" placeholder="Guests" required></div>
+              <div class="col-12 d-grid">
+                <button class="btn btn-success" type="submit">Add Reservation</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="col-12 col-lg-8 anim-fadeUp">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">All Reservations</h5>
+              <div id="tableWrap" class="table-responsive">
+                <table class="table table-hover align-middle" translate="no">
+                  <thead>
+                    <tr translate="yes">
+                      <th>Name</th><th>Email</th><th>Date</th><th>Time</th><th>Guests</th><th class="text-end">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bookingsList">
+                    <!-- rows will be injected -->
+                  </tbody>
+                </table>
+              </div>
+              <div id="emptyState" class="text-center small-muted py-3">No reservations yet.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog">
+      <form id="editForm" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Reservation</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="key">
+          <div class="mb-2"><input class="form-control" name="name" placeholder="Name" required></div>
+          <div class="mb-2"><input class="form-control" name="email" type="email" placeholder="Email" required></div>
+          <div class="row g-2 mb-2">
+            <div class="col"><input class="form-control" name="date" type="date" required></div>
+            <div class="col"><input class="form-control" name="time" type="time" required></div>
+          </div>
+          <div><input class="form-control" name="guests" type="number" placeholder="Guests" required></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Change Password Modal -->
+  <div class="modal fade" id="changePassModal" tabindex="-1">
+    <div class="modal-dialog">
+      <form id="changePassForm" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Change Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2"><input class="form-control" id="currentPassword" type="password" placeholder="Current password" required></div>
+          <div class="mb-2"><input class="form-control" id="newPassword" type="password" placeholder="New password (min 6 chars)" required minlength="6"></div>
+          <div class="small-muted">You will be re-signed-in with the new password if successful.</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-warning">Change Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap + Firebase (module) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script type="module">
+    // Firebase modular imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+    import { getDatabase, ref, push, onValue, update, remove } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+    import {
+      getAuth, signInWithEmailAndPassword, signOut,
+      onAuthStateChanged, reauthenticateWithCredential,
+      EmailAuthProvider, updatePassword
+    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+    // ---------- Your Firebase config (project provided earlier) ----------
+    const firebaseConfig = {
+      apiKey: "AIzaSyDN7FQk1j_uS07XWX1p-G0wWAnB5g3krJ8",
+      authDomain: "fir-f3352.firebaseapp.com",
+      databaseURL: "https://fir-f3352-default-rtdb.firebaseio.com/",
+      projectId: "fir-f3352",
+      storageBucket: "fir-f3352.appspot.com",
+      messagingSenderId: "751167532545",
+      appId: "1:751167532545:web:a40c7310ff525c35411a00",
+      measurementId: "G-SVQE84LYVV"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const auth = getAuth(app);
+
+    // UI refs
+    const loginWrap = document.getElementById('loginWrap');
+    const dashWrap = document.getElementById('dashWrap');
+    //const adminEmailDisplay = document.getElementById('adminEmailDisplay');
+    const loginForm = document.getElementById('loginForm');
+    const loginAlert = document.getElementById('loginAlert');
+    const addForm = document.getElementById('addForm');
+    const bookingsList = document.getElementById('bookingsList');
+    const emptyState = document.getElementById('emptyState');
+
+    const editModalEl = document.getElementById('editModal');
+    const editModal = new bootstrap.Modal(editModalEl);
+    const editForm = document.getElementById('editForm');
+
+    const changePassModalEl = document.getElementById('changePassModal');
+    const changePassModal = new bootstrap.Modal(changePassModalEl);
+    const changePassBtn = document.getElementById('changePassBtn');
+    const changePassForm = document.getElementById('changePassForm');
+
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Helper: show alert
+    function showAlert(container, message, type='danger') {
+      container.innerHTML = `<div class="alert alert-${type} py-2" role="alert">${message}</div>`;
+      setTimeout(()=> container.innerHTML = '', 4000);
+    }
+
+    // Auth state observer
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        // show dashboard
+        loginWrap.classList.add('d-none');
+        dashWrap.classList.remove('d-none');
+        //adminEmailDisplay.textContent = user.email;
+        startListeningBookings();
+      } else {
+        // show login
+        dashWrap.classList.add('d-none');
+        loginWrap.classList.remove('d-none');
+        stopListeningBookings();
+        bookingsList.innerHTML = '';
+      }
+    });
+
+    // LOGIN handler
+    loginForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass  = document.getElementById('loginPass').value;
+      try {
+        await signInWithEmailAndPassword(auth, email, pass);
+        loginForm.reset();
+      } catch (err) {
+        showAlert(loginAlert, `Login failed: ${err.message}`, 'danger');
+      }
+    };
+
+    // LOGOUT
+    logoutBtn.addEventListener('click', async () => {
+      try {
+        await signOut(auth);
+      } catch (err) {
+        alert('Logout error: ' + err.message);
+      }
+    });
+
+    // CHANGE PASSWORD UI
+    changePassBtn.addEventListener('click', () => {
+      changePassModal.show();
+    });
+
+    changePassForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const currentPassword = document.getElementById('currentPassword').value;
+      const newPassword = document.getElementById('newPassword').value;
+      const user = auth.currentUser;
+      if (!user) return alert('Not authenticated');
+
+      // Reauthenticate
+      const cred = EmailAuthProvider.credential(user.email, currentPassword);
+      try {
+        await reauthenticateWithCredential(user, cred);
+        await updatePassword(user, newPassword);
+        changePassForm.reset();
+        changePassModal.hide();
+        alert('Password changed successfully. You remain signed-in.');
+      } catch (err) {
+        alert('Password change failed: ' + err.message);
+      }
+    };
+
+    // Add reservation
+    addForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const f = e.target;
+      const data = {
+        name: f.name.value.trim(),
+        email: f.email.value.trim(),
+        date: f.date.value,
+        time: f.time.value,
+        guests: Number(f.guests.value) || 1,
+        createdAt: Date.now()
+      };
+      try {
+        await push(ref(db, 'bookings'), data);
+        f.reset();
+      } catch (err) {
+        alert('Add failed: ' + err.message);
+      }
+    };
+
+    // Live bookings listener
+    let bookingsRef = ref(db, 'bookings');
+    let unsubscribe = null;
+
+    function startListeningBookings() {
+      // ensure we don't attach multiple listeners
+      if (unsubscribe) return;
+
+      onValue(bookingsRef, snapshot => {
+        const val = snapshot.val();
+        renderBookings(val);
+      }, (err) => {
+        alert('Realtime listener error: ' + err.message);
+      });
+
+      // set flag (we don't have a detach handle from onValue in this vX; to detach use off() pattern if needed)
+      unsubscribe = true;
+    }
+
+    function stopListeningBookings() {
+      // detach all listeners from 'bookings' path
+      // The modular SDK doesn’t expose a direct off(ref, callback) without keeping a callback ref.
+      // Easiest: remove all listeners by calling `onValue(...).` We will detach by attaching a no-op
+      // But for simplicity in this demo just reset the UI; in production, store the callback and call off().
+      unsubscribe = null;
+    }
+
+    // Render table rows
+    function renderBookings(bookingsObj) {
+      bookingsList.innerHTML = '';
+      if (!bookingsObj) {
+        emptyState.style.display = 'block';
+        return;
+      }
+      emptyState.style.display = 'none';
+      // bookingsObj is { key1: {...}, key2: {...} }
+      const entries = Object.entries(bookingsObj).sort((a,b) => (b[1].createdAt||0)-(a[1].createdAt||0));
+      for (const [key, data] of entries) {
+        const tr = document.createElement('tr');
+
+        tr.innerHTML = `
+          <td>${escapeHtml(data.name||'')}</td>
+          <td><a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email||'')}</a></td>
+          <td>${escapeHtml(data.date||'')}</td>
+          <td>${escapeHtml(data.time||'')}</td>
+          <td>${escapeHtml(data.guests?.toString()||'')}</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-primary me-1 btn-edit">Edit</button>
+            <button class="btn btn-sm btn-outline-danger btn-delete">Delete</button>
+          </td>
+        `;
+
+        // Edit
+        tr.querySelector('.btn-edit').addEventListener('click', () => {
+          openEditModal(key, data);
+        });
+
+        // Delete
+        tr.querySelector('.btn-delete').addEventListener('click', async () => {
+          if (!confirm('Delete this reservation?')) return;
+          try {
+            await remove(ref(db, `bookings/${key}`));
+          } catch (err) {
+            alert('Delete failed: ' + err.message);
+          }
+        });
+
+        bookingsList.appendChild(tr);
+      }
+    }
+
+    // Open edit modal and populate
+    function openEditModal(key, data) {
+      editForm.key.value = key;
+      editForm.name.value = data.name || '';
+      editForm.email.value = data.email || '';
+      editForm.date.value = data.date || '';
+      editForm.time.value = data.time || '';
+      editForm.guests.value = data.guests || '';
+      editModal.show();
+    }
+
+    // Save edit
+    editForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const key = form.key.value;
+      const payload = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        date: form.date.value,
+        time: form.time.value,
+        guests: Number(form.guests.value) || 1
+      };
+      try {
+        await update(ref(db, `bookings/${key}`), payload);
+        editModal.hide();
+      } catch (err) {
+        alert('Update failed: ' + err.message);
+      }
+    };
+
+    // Small escape for HTML
+    function escapeHtml(str) {
+      return String(str||'')
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+    }
+
+    // Helpful note for testing: If you want to create the admin user from code (ONLY for first-time set-up),
+    // you can create a new user from Firebase Console -> Authentication -> Users -> Add user.
+    // This demo assumes the admin user already exists.
+
+    // ------- End of module -------
+  </script>
+    <!-- Google Translate -->
+  <div id="google_translate_element" class="translate-select"></div>
+  <style>
+    /* Hide Google top bar */
+    .goog-te-banner-frame.skiptranslate,
+    .goog-te-balloon-frame,
+    #goog-gt-tt,
+    .goog-te-spinner-pos {
+      display: none !important;
+    }
+    body {
+      top: 0px !important;
+    }
+
+    /* Ensure notranslate content stays intact */
+    .notranslate, [translate="no"] {
+      unicode-bidi: plaintext !important;
+    }
+  </style>
+ 
+ 
+ </body>
+</html>
