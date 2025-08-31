@@ -83,7 +83,7 @@
               <div class="col-12"><input class="form-control" name="email" type="email" placeholder="Email" required></div>
               <div class="col-6"><input class="form-control" name="date" type="date" required></div>
               <div class="col-6"><input class="form-control" name="time" type="time" required></div>
-              <div class="col-12"><input class="form-control" name="guests" type="number" placeholder="Guests" required></div>
+              <div class="col-12"><input class="form-control" name="guests" min="1" max="10" type="number" placeholder="Guests" required></div>
               <div class="col-12 d-grid">
                 <button class="btn btn-success" type="submit">Add Reservation</button>
               </div>
@@ -445,3 +445,4 @@
  
  </body>
 </html>
+
