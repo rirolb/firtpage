@@ -100,7 +100,7 @@
     /* Hero */
     .hero {
       height: 100vh;
-      background: url('https://picsum.photos/1600/900?restaurant') center/cover no-repeat fixed;
+      background: url('https://i1.pickpik.com/photos/59/337/109/dish-restaurant-dining-food-preview.jpg') center/cover no-repeat fixed;
       display: flex; align-items: center; justify-content: center;
       text-align: center; color: white; position: relative;
     }
@@ -161,28 +161,28 @@
 <section id="about" class="container py-5 text-center">
   <h2 class="section-title">About Us</h2>
   <p class="lead">Since 1995, Delicious Bites has served authentic dishes made with love, passion, and fresh ingredients. Our chefs blend tradition and creativity to bring you an unforgettable dining experience.</p>
-  <img src="https://picsum.photos/900/400?chef" class="img-fluid rounded shadow mt-3 animate__animated animate__fadeInUp" alt="Chef cooking">
+  <img src="https://i1.pickpik.com/photos/59/337/109/dish-restaurant-dining-food-preview.jpg" class="img-fluid rounded shadow mt-3 animate__animated animate__fadeInUp" alt="Chef cooking">
 </section>
 
 <!-- Menu -->
 <section id="menu" class="container py-5">
   <h2 class="section-title text-center">Our Special Menu</h2>
   <div class="row g-4">
-    <div class="col-md-3"><div class="card menu-item shadow-lg"><img src="https://picsum.photos/400/300?pizza" class="card-img-top"><div class="card-body"><h5>Italian Pizza</h5><p>$12.99</p></div></div></div>
-    <div class="col-md-3"><div class="card menu-item shadow-lg"><img src="https://picsum.photos/400/300?burger" class="card-img-top"><div class="card-body"><h5>Cheese Burger</h5><p>$9.99</p></div></div></div>
-    <div class="col-md-3"><div class="card menu-item shadow-lg"><img src="https://picsum.photos/400/300?sushi" class="card-img-top"><div class="card-body"><h5>Fresh Sushi</h5><p>$15.99</p></div></div></div>
-    <div class="col-md-3"><div class="card menu-item shadow-lg"><img src="https://picsum.photos/400/300?steak" class="card-img-top"><div class="card-body"><h5>Grilled Steak</h5><p>$19.99</p></div></div></div>
+    <div class="col-md-3"><div class="card menu-item shadow-lg"><img src="https://www.gloriafood.com/wp-content/uploads/2018/06/Pizza-Primavera-1024x683.jpg" class="card-img-top"><div class="card-body"><h5>Italian Pizza</h5><p>$12.99</p></div></div></div>
+    <div class="col-md-3"><div class="card menu-item shadow-lg"><img src="https://www.gastrostoria.com/wp-content/uploads/2019/05/K3A0431.jpg" class="card-img-top"><div class="card-body"><h5>Cheese Burger</h5><p>$9.99</p></div></div></div>
+    <div class="col-md-3"><div class="card menu-item shadow-lg"><img src="https://www.gloriafood.com/wp-content/uploads/2018/06/fresh-ingredients-for-a-Caesar-salad-1024x683.jpg" class="card-img-top"><div class="card-body"><h5>Fresh Sushi</h5><p>$15.99</p></div></div></div>
+    <div class="col-md-3"><div class="card menu-item shadow-lg"><img src="https://www.gloriafood.com/wp-content/uploads/2018/06/food-image-take-when-its-cloudy-1024x678.jpg" class="card-img-top"><div class="card-body"><h5>Grilled Steak</h5><p>$19.99</p></div></div></div>
   </div>
 </section>
 
 <!-- Special Offers -->
 <section id="offers" class="offers-section text-center text-white py-5 m-5">
   <div class="container">
-    <h2 class="section-title animate__animated animate__fadeInDown">🔥 Special Offers</h2>
+    <h2 class="section-title animate__animated animate__fadeInDown">Special Offers</h2>
     <div class="row g-4 mt-4">
       <div class="col-md-4">
         <div class="offer-card shadow-lg animate__animated animate__fadeInUp">
-          <img src="https://picsum.photos/400/250?pizza" class="offer-img" alt="Pizza Offer">
+          <img src="https://www.gastrostoria.com/wp-content/uploads/2019/05/K3A0431.jpg" class="offer-img" alt="Pizza Offer">
           <div class="offer-overlay">
             <h3>20% Off Pizzas</h3>
             <p>Every Friday – Sunday</p>
@@ -192,7 +192,7 @@
       </div>
       <div class="col-md-4">
         <div class="offer-card shadow-lg animate__animated animate__fadeInUp animate__delay-1s">
-          <img src="https://picsum.photos/400/250?steak" class="offer-img" alt="Steak Offer">
+          <img src="https://www.gloriafood.com/wp-content/uploads/2018/06/food-image-take-when-its-cloudy-1024x678.jpg" class="offer-img" alt="Steak Offer">
           <div class="offer-overlay">
             <h3>Free Dessert</h3>
             <p>With Every Steak Order</p>
@@ -202,7 +202,7 @@
       </div>
       <div class="col-md-4">
         <div class="offer-card shadow-lg animate__animated animate__fadeInUp animate__delay-2s">
-          <img src="https://picsum.photos/400/250?sushi" class="offer-img" alt="Sushi Offer">
+          <img src="https://www.gloriafood.com/wp-content/uploads/2018/06/fresh-ingredients-for-a-Caesar-salad-1024x683.jpg" class="offer-img" alt="Sushi Offer">
           <div class="offer-overlay">
             <h3>Buy 1 Get 1</h3>
             <p>Fresh Sushi Rolls</p>
@@ -219,9 +219,9 @@
   <h2 class="section-title text-center">Gallery</h2>
   <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner rounded shadow-lg">
-      <div class="carousel-item active"><img src="https://picsum.photos/1200/500?food1" class="d-block w-100"></div>
-      <div class="carousel-item"><img src="https://picsum.photos/1200/500?food2" class="d-block w-100"></div>
-      <div class="carousel-item"><img src="https://picsum.photos/1200/500?food3" class="d-block w-100"></div>
+      <div class="carousel-item active"><img src="https://www.gloriafood.com/wp-content/uploads/2018/06/Pizza-Primavera-1024x683.jpg" class="d-block w-100"></div>
+      <div class="carousel-item"><img src="https://www.gastrostoria.com/wp-content/uploads/2019/05/K3A0431.jpg" class="d-block w-100"></div>
+      <div class="carousel-item"><img src="https://www.gloriafood.com/wp-content/uploads/2018/06/food-image-take-when-its-cloudy-1024x678.jpg" class="d-block w-100"></div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
       <span class="carousel-control-prev-icon"></span>
@@ -373,6 +373,5 @@
 </body>
 
 </html>
-
 
 
